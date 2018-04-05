@@ -43,17 +43,17 @@
 ;; =============
 ;; Put into your `user-init-file' (rectangle selectable :-):
 ;;
-;; ;; MTorus: navigation with marks on a ring of rings (torus) 
-;; (require 'mtorus)                                           
-;; (mtorus-init)                                               
-;; (mtorus-install-suggested-bindings)                         
+;; ;; MTorus: navigation with marks on a ring of rings (torus)
+;; (require 'mtorus)
+;; (mtorus-init)
+;; (mtorus-install-suggested-bindings)
 ;;
-;; Maybe you don't want the whole torus but like the buffer cycling? 
+;; Maybe you don't want the whole torus but like the buffer cycling?
 ;; Don't init the torus and use some backend functions instead:
-;; ;; MTorus: navigation with marks on a ring of rings (torus) 
-;; (require 'mtorus)                                           
-;; (global-set-key '[(shift right)] 'mtorus-cycle-blist-next)  
-;; (global-set-key '[(shift left)]  'mtorus-cycle-blist-prev)  
+;; ;; MTorus: navigation with marks on a ring of rings (torus)
+;; (require 'mtorus)
+;; (global-set-key '[(shift right)] 'mtorus-cycle-blist-next)
+;; (global-set-key '[(shift left)]  'mtorus-cycle-blist-prev)
 ;;
 ;; Suggested Keybindings:
 ;; Shift Left/Right     cycle markers on a ring
@@ -64,8 +64,8 @@
 ;;
 ;; If you don't like those (maybe because you use the windows like
 ;; selection with shift hold down)  you should create your own
-;; bindings to the functions 
-;; 
+;; bindings to the functions
+;;
 ;; mtorus-cycle-marker-next
 ;; mtorus-cycle-marker-previous
 ;; mtorus-cycle-ring-next
@@ -100,7 +100,7 @@
 ;; files is responsible for one specific task or like working on a
 ;; chapter in a LaTeX-document while defining some macros at the top
 ;; of the file.  There is always a default group which contains all
-;; the open buffers and can not be altered. 
+;; the open buffers and can not be altered.
 ;;
 ;; Like so:
 ;; +- Ring: C-code -------------------------------------------------+
@@ -138,7 +138,7 @@
 ;; entries are made of a buffer together with a position (and that is a
 ;; marker) each of the groups is comparable to the mark-ring. And
 ;; since we are cycling through a collection of those rings we are
-;; using a Torus here. Hence the name: "mtorus": mark-torus. 
+;; using a Torus here. Hence the name: "mtorus": mark-torus.
 ;; (A "group" will usually be referred to as a "ring" from now.)
 
 ;; MTorus tries to be be somewhat intelligent in when to overwrite
@@ -161,7 +161,7 @@
 ;; ~/.emacs, right after the (desktop-read) function which you might
 ;; have in your init file. MTorus tries to load all the files
 ;; mentioned in that buffer and hopefully saves them in a reasonable
-;; way. 
+;; way.
 
 ;; TODO:
 ;; =====
@@ -187,12 +187,12 @@
 ;;
 ;; - create torus.el as an abstract interface to a ring of rings
 ;;   (using ring.el) and then create mtorus.el as an application of
-;;   torus.el? 
+;;   torus.el?
 ;;  - find good defaults for the intuitive-custom-settings
 ;;  - are all the common buffer lists (buffer-list, recent-files,
 ;;    bookmarks? of a structure we could interpret here? Then
 ;;    recent-files could be another 'special' list with a matching
-;;    accessor function and we could browse through those groups, too? 
+;;    accessor function and we could browse through those groups, too?
 ;;    having a "special:"-string at the beginning of a ring-name or
 ;;    instead of a marker might be a good idea here?
 ;;  - see FIXMEs throughout the file
@@ -205,6 +205,19 @@
 ;;; Code:
 
 (eval-when-compile (require 'cl))
+
+;; ==============================
+
+(if (not (functionp 'remassoc))
+    (defun remassoc (key a)
+      "remove an association pair from an alist"
+      (if a
+          (let ((pair (car a)))
+            (if (equal (car pair) key)
+                (cdr a)
+              (cons pair (remassoc key (cdr a))))))))
+
+;; ==============================
 
 ;; user options (customize)
 (defgroup mtorus nil
@@ -228,7 +241,7 @@ find good settings for many people."
 The function `mtorus-quit' is placed on `kill-emacs-hook'."
   :type 'boolean
   :group 'mtorus)
-  
+
 
 (defcustom mtorus-show-marker-list-when-cycling-p t
   "*Whether the buffer-names are displayed when you cycle rings.
@@ -328,7 +341,7 @@ If set to an alist it's elements should be of the form:
 \(major-mode . function)
 and if the major mode of the buffer of the marker matches one on the
 list the appropriate function is called after the point is
-\(temporarily) moved to the buffer and the position. In other words: 
+\(temporarily) moved to the buffer and the position. In other words:
 the function should return some reasonable string when called at the
 position of the marker. If it returns nil the point is used.
 
@@ -401,7 +414,7 @@ always uses the real buffer list. It skips all buffers that
 ;  :type 'string
 ;  :group 'mtorus-pop-up)
 
-  
+
 (defvar mtorus-dirname nil
   "The directory from which a torus was last read.
 This is the directory to which to save the torus when exiting emacs
@@ -496,7 +509,7 @@ it and I provide it only as a convenience function."
 		(save-excursion
 		  (end-of-line)
 		  (point)))))
-	  
+
 ;; User visible functions
 (defun mtorus-init ()
   "This starts the torus and opens the default ring.
@@ -507,7 +520,7 @@ You can use the mtorus-cycle-blist-* functions separately if
 you don't call this function so that you always just cycle the real
 buffer list. Then you can use the variable
 `mtorus-buffer-skip-p' to tune the cycling to your desired
-behavior." 
+behavior."
   (interactive)
   (setq mtorus-torus nil)
   (mtorus-new-ring mtorus-default-ring-name)
@@ -575,7 +588,7 @@ markers."
 
 ;; FIXME: maybe we can find a clever way to have a look at the length
 ;; of a description and adjust it (cropping or using point or ...?)?
-;; So not to (over)fill the echo area. 
+;; So not to (over)fill the echo area.
 (defun mtorus-marker-description (marker)
   "Return a string with the description of marker MARKER.
 Uses `mtorus-describe-marker-func'."
@@ -713,7 +726,7 @@ the default ring. It skips buffers for that
 				  (not (funcall mtorus-buffer-skip-p buf))))))
     (if blist
 		(switch-to-buffer (car (reverse blist))))))
-  
+
 (defun mtorus-add-current-pos-to-current-ring ()
   "Adds a marker at the current point to the current ring.
 Makes the current buffer the current ring buffer, too."
@@ -744,12 +757,12 @@ See also: `mtorus-add-current-pos-to-current-ring'."
 		  (setf (second ring)
 				(append (list marker)
 						(second ring)))
-		  (display-message 'no-log 
+		  (display-message 'no-log
 			(format
 			 "Added %s to %s" (mtorus-marker-description marker)
 			 ring-name))))
 	;; else: default is not editable list
-	(display-message 'no-log 
+	(display-message 'no-log
 	  (format "Default list is not editable!"))))
 
 (defun mtorus-delete-current-marker-from-current-ring ()
@@ -894,7 +907,7 @@ of that ring (and to that buffer) if
 `mtorus-switch-to-marker-when-cycling-p' is set to true and the
 selected ring is not the default ring.
 If `mtorus-update-marker-when-cycling-rings-p' is set to t the point
-in the just left marker is updated." 
+in the just left marker is updated."
   (interactive)
   (if (and (not (equal mtorus-default-ring-name
 					   mtorus-current-ring-name))
@@ -943,7 +956,7 @@ Asks for a directory where to save it (just like `desktop-save' does."
 		   #'(lambda (ring)
 			   (if (not (equal mtorus-default-ring-name
 							   (first ring)))
-				   (format "(\"%s\" . (%s))\n" 
+				   (format "(\"%s\" . (%s))\n"
 						   (first ring)
 						   (mapconcat
 							#'(lambda (marker)
