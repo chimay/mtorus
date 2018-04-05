@@ -208,6 +208,8 @@
 
 ;; ==============================
 
+;; Credit : https://github.com/emacs-ess/ESS/pull/400/files
+
 (if (not (functionp 'remassoc))
     (defun remassoc (key a)
       "remove an association pair from an alist"
