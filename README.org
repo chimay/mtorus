@@ -1,3 +1,6 @@
+
+#+STARTUP: showall
+
 Mirror of https://sourceforge.net/projects/mtorus.berlios/
 
 In short, MTorus let you organize your buffers in emacs by creating
