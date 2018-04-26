@@ -18,3 +18,8 @@ in case I would need to tweak it.
 What has been done :
 
   - Added remassoc : needed by mtorus-delete-ring
+
+
+* Warning
+
+I try to be mindful when I code, but some bugs might remain, so be careful.
