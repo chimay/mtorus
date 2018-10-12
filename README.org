@@ -19,8 +19,10 @@ What has been done :
 
   - Added remassoc : needed by mtorus-delete-ring
 
-  - mtorus-save-torus : save filenames of the torus instead of buffer
-    names : easier to restore with mtorus-read-torus later
+  - Persistent torus : save *filenames* of the torus to a file with mtorus-save-torus
+
+    + In the previous version, only *buffer names* were saved, which is
+      not sufficient to restore files located in multiple directories
 
 
 * Warning
