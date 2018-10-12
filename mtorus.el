@@ -978,7 +978,7 @@ Asks for a directory where to save it (just like `desktop-save' does."
 						 (marker-buffer marker))))
 		   (marker-position marker))
 	  (concat
-	   "(\"" (buffer-name
+	   "(\"" (buffer-file-name
 			  (marker-buffer marker))
 	   "\" . "
 	   (format
