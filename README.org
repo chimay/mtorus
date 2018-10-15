@@ -12,16 +12,15 @@ Note that :
 
   - The set of all buffer groups is called the torus (a ring of rings)
 
-In short, this plugin let you organize your buffers in emacs by
-creating as many buffer groups as you need, and quickly navigate
-between :
+In short, this plugin let you organize your buffers by creating as
+many buffer groups as you need, and quickly navigate between :
 
   - Buffers of the same group
 
   - Buffer groups (rings)
 
-The project seems to be at rest by now, so I’ve mirrored it here in
-case I would need to tweak it.
+The original project seems to be at rest by now, so I’ve mirrored it
+here in case I would need to tweak it.
 
 What has been done :
 
