@@ -3,26 +3,34 @@
 
 Mirror of https://sourceforge.net/projects/mtorus.berlios/
 
-In short, MTorus let you organize your buffers in emacs by creating
-as many buffer groups as you need, and quickly navigate between :
+If you ever dreamed about creating and switching buffer groups at will
+in emacs, MTorus is the tool you want.
 
-  - Buffer groups, called buffer rings
+Note that :
+
+  - A buffer group is called a ring
+
+  - The set of all buffer groups is called the torus (a ring of rings)
+
+In short, this plugin let you organize your buffers in emacs by
+creating as many buffer groups as you need, and quickly navigate
+between :
 
   - Buffers of the same group
 
-The torus is simply the ring of buffer rings.
+  - Buffer groups (rings)
 
-The project seems to be at rest by now, so I’ve just mirrored it here
-in case I would need to tweak it.
+The project seems to be at rest by now, so I’ve mirrored it here in
+case I would need to tweak it.
 
 What has been done :
-
-  - Added remassoc : needed by mtorus-delete-ring
 
   - Persistent torus : save *filenames* of the torus to a file with mtorus-save-torus
 
     + In the previous version, only *buffer names* were saved, which is
       not sufficient to restore files located in multiple directories
+
+  - Added remassoc : needed by mtorus-delete-ring
 
 
 * Warning
