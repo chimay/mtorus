@@ -24,6 +24,12 @@ here in case I would need to tweak it.
 
 What has been done :
 
+  - Change buffer by name with mtorus-switch-to-marker
+
+    + Inspired by mtorus-switch-to-ring
+
+    + Both functions work well with Helm
+
   - Persistent torus : save *filenames* of the torus to a file with mtorus-save-torus
 
     + In the previous version, only *buffer names* were saved, which is
