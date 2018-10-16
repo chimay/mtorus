@@ -22,6 +22,9 @@ many buffer groups as you need, and quickly navigate between :
 The original project seems to be at rest by now, so I’ve mirrored it
 here in case I would need to tweak it.
 
+
+* Done
+
 What has been done :
 
   - Change buffer by name with mtorus-switch-to-marker
