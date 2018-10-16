@@ -964,16 +964,24 @@ in the just left marker is updated."
 
 (defun mtorus-quit ()
   "Maybe save torus."
-  (let* ((dirname (or mtorus-dirname (mtorus-default-directory))))
-	(if mtorus-dirname
-		(mtorus-save-torus dirname))))
+  (mtorus-save-torus)
+  ;; (let* ((dirname (or mtorus-dirname (mtorus-default-directory))))
+  ;; 	(if mtorus-dirname
+  ;; 	    (mtorus-save-torus dirname)))
+  )
 
-(defun mtorus-save-torus (dirname)
-  "Save the current torus to `mtorus-file-name'.
-Asks for a directory where to save it (just like `desktop-save' does."
-  (interactive "DDirectory to save torus file in: ")
+(defun mtorus-save-torus ()
+  "Save the current torus to `mtorus-file-name'."
+
+  ;; Asks for a directory where to save it (just like `desktop-save' does.
+  ;; (interactive "DDirectory to save torus file in: ")
+
+  ;;  (let ((filename (expand-file-name mtorus-file-name dirname))
+
+  (interactive)
+
   (run-hooks 'mtorus-save-hook)
-    (let ((filename (expand-file-name mtorus-file-name dirname))
+    (let ((filename (expand-file-name mtorus-file-name))
 		  (tmpbuf (get-buffer-create " *mtorus-tmp*"))
 		  )
 	  (save-excursion
@@ -997,7 +1005,9 @@ Asks for a directory where to save it (just like `desktop-save' does."
 		   mtorus-torus " ")
 		  ")\n"))
 		(write-region (buffer-string) nil filename nil 'no-message)
-		(setq mtorus-dirname dirname)
+
+		;; (setq mtorus-dirname dirname)
+
 		(kill-buffer nil))))
 
 (defun mtorus-marker-to-cons-string (marker)
