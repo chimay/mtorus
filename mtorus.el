@@ -922,6 +922,35 @@ in the just left marker is updated."
 			 mtorus-switch-to-marker-when-cycling-p)
 		(mtorus-switch-to-current-marker))))
 
+(defun mtorus-switch-to-marker (&optional mark-name)
+  "Switch to another mark of ring.
+If MARK-NAME is not given it is asked for.
+This moves point to the position defined in the marker
+if `mtorus-switch-to-marker-when-cycling-p' is set to true and the
+selected ring is not the default ring.
+If `mtorus-update-marker-when-cycling-rings-p' is set to t the point
+in the just left marker is updated."
+  (interactive)
+
+  (if (not (equal mtorus-default-ring-name mtorus-current-ring-name)) (progn
+
+    (setq entry (read (mtorus-choose-marker)))
+    (setq ring (mtorus-current-ring))
+
+    (if mtorus-update-marker-when-cycling-markers-p (mtorus-update-current-marker))
+
+    (if (not (equal (length (second ring)) 1))
+
+      (while (not (equal entry (read (mtorus-marker-to-cons-string (first (second ring))))))
+          (setf (second ring) (append (last (second ring)) (butlast (second ring)))))
+
+    (display-message 'no-log "only marker."))
+
+    (mtorus-switch-to-current-marker))
+
+  (display-message 'no-log "Not available in all-buffers ring ; use Helm instead."))
+)
+
 (defun mtorus-update-current-marker ()
   "Takes care the the current marker position is up to date."
   (interactive)
@@ -1116,6 +1145,12 @@ The first marker is always considered the current marker."
   "Ask the user to choose a ring (with completion)."
   (completing-read "choose ring: "
 				   mtorus-torus
+				   nil t))
+
+(defun mtorus-choose-marker ()
+  "Ask the user to choose a marker in the ring (with completion)."
+  (completing-read "choose marker: "
+				  (mapcar #'mtorus-marker-to-cons-string (second (mtorus-current-ring)))
 				   nil t))
 
 (defun mtorus-find-current-ring-pos ()
