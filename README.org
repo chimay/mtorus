@@ -41,7 +41,7 @@ What has been done :
   - Added remassoc : needed by mtorus-delete-ring
 
 
-*** Configuration
+* Configuration
 
 #+begin_src emacs-lisp
 
