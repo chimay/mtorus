@@ -1053,7 +1053,7 @@ When XEmacs is running in batch mode nothing is done."
 							;; create the ring
 							(mtorus-new-ring (car ring))
 							(mapc #'(lambda (entry)
-								  (if (not (eq entry nil)) (mtorus-read-create-marker entry)))
+								  (mtorus-read-create-marker entry))
 								  (cdr ring)))
 							tmplist)
 				  (kill-buffer tmpbuf)
