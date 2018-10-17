@@ -948,7 +948,7 @@ in the just left marker is updated."
 
     (mtorus-switch-to-current-marker))
 
-  (display-message 'no-log "Not available in all-buffers ring ; use Helm instead."))
+  (call-interactively 'switch-to-buffer))
 )
 
 (defun mtorus-update-current-marker ()
