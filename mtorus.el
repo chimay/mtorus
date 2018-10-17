@@ -1068,7 +1068,7 @@ ENTRY is of the form \(\"buffer-name\" . position).
 The file is opened if necessary."
   (save-excursion
 	(let ((bufname (car entry)))
-	  (if (not (string-match "\(^\\*\|nil\)" bufname))
+	  (if (not (string-match "\(^\\*\|^nil$\)" bufname))
 		  (let ((bufpos (cdr entry))
 				(buffer (find-file-noselect bufname t)))
 			(set-buffer buffer)
