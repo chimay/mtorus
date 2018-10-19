@@ -78,14 +78,8 @@ What has been done :
 (global-set-key (kbd "<C-home>") 'mtorus-cycle-ring-previous)
 (global-set-key (kbd "<C-end>") 'mtorus-cycle-ring-next)
 
-;;(global-set-key (kbd "<C-home>") (lambda () (interactive) (mtorus-cycle-ring-previous) (mtorus-cycle-marker-next)))
-;;(global-set-key (kbd "<C-end>") (lambda () (interactive) (mtorus-cycle-ring-next) (mtorus-cycle-marker-next)))
-
 (global-set-key (kbd "s-SPC") 'mtorus-switch-to-ring)
 (global-set-key (kbd "s-t S") 'mtorus-switch-to-ring)
-
-;;(global-set-key (kbd "s-SPC") (lambda () (interactive) (mtorus-switch-to-ring) (mtorus-cycle-marker-next)))
-;;(global-set-key (kbd "s-t S") (lambda () (interactive) (mtorus-switch-to-ring) (mtorus-cycle-marker-next)))
 
 (global-set-key (kbd "s-=") 'mtorus-switch-to-marker)
 (global-set-key (kbd "s-t s") 'mtorus-switch-to-marker)
@@ -98,9 +92,9 @@ What has been done :
 (setq mtorus-update-marker-when-cycling-rings-p t)
 (setq mtorus-switch-when-deleting-p t)
 
-(setq mtorus-save-on-exit t)
 (setq mtorus-file-name "~/racine/plugin/data/mtorus/mtorus.el")
 
+;; (setq mtorus-save-on-exit t)
 ;; (mtorus-read-torus)
 
 #+end_src
