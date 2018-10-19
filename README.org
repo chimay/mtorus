@@ -33,7 +33,7 @@ What has been done :
 
     + Both functions work well with Helm
 
-  - Persistent torus : save *filenames* of the torus to a file with mtorus-save-torus
+  - Persistent torus : save buffers *filenames* of the torus to a file with mtorus-save-torus
 
     + In the previous version, only *buffer names* were saved, which is
       not sufficient to restore files located in multiple directories
