@@ -992,11 +992,11 @@ in the just left marker is updated."
 
   ;; (mtorus-map-into mtorus-torus #'delete-dups mtorus-torus)
 
-  (let (value)
-    (dolist (elt mtorus-torus value)
-      (setcdr elt (delete-dups (cdr elt)))
-	)
-    )
+  ;; (let (value)
+  ;;   (dolist (elt mtorus-torus value)
+  ;;     (setcdr elt (delete-dups (cdr elt)))
+  ;; 	)
+  ;;   )
  )
 
 (defun mtorus-save-torus ()
