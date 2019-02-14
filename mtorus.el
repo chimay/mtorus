@@ -204,6 +204,7 @@
 
 ;;; Code:
 
+;; Not really needed, it seems
 ;; (eval-when-compile (require 'cl))
 
 ;; ==============================
@@ -986,8 +987,17 @@ in the just left marker is updated."
 (defun mtorus-remove-duplicates ()
 
   "Remove duplicates files in rings"
-    (mtorus-map-into mtorus-torus #'delete-dups mtorus-torus)
-  )
+
+  ;; Ne marche pas
+
+  ;; (mtorus-map-into mtorus-torus #'delete-dups mtorus-torus)
+
+  (let (value)
+    (dolist (elt mtorus-torus value)
+      (setcdr elt (delete-dups (cdr elt)))
+	)
+    )
+ )
 
 (defun mtorus-save-torus ()
   "Save the current torus to `mtorus-file-name'."
