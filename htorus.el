@@ -1,7 +1,6 @@
+;;; HTorus : like MTorus but with hash table, seems easier to handle the data structure
 
-;;; htorus.el : like htorus but with hash table
-
-;; TODO
+;; TODO : nothing is done yet
 
 ;;; htorus.el --- navigation with marks on a ring of rings (torus)
 ;; $Id: htorus.el,v 1.6 2003/01/14 21:16:16 ska Exp $
