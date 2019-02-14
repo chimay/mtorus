@@ -204,11 +204,11 @@
 
 ;;; Code:
 
-(eval-when-compile (require 'cl))
+;; (eval-when-compile (require 'cl))
 
 ;; ==============================
 
-;; Outils
+;; Tools
 
 ;; Credit : https://github.com/emacs-ess/ESS/pull/400/files
 
@@ -223,13 +223,13 @@
 
 ;; Credit : https://stackoverflow.com/questions/27666457/mapcar-in-place-destructively-modify-a-list-of-lists
 
+(defun mtorus-map-into (rs f xs)
+  (mapl (lambda (r x) (setf (car r) (funcall f (car x)))) rs xs))
+
 ; (defun mtorus-map-into (r f xs)
 ;   (dotimes (i (min (length r) (length xs)) r)
 ;     (setf (elt r i)
 ;           (funcall f (elt xs i)))))
-
-(defun mtorus-map-into (rs f xs)
-  (mapl (lambda (r x) (setf (car r) (funcall f (car x)))) rs xs))
 
 ;; ==============================
 
