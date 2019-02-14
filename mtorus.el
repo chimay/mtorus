@@ -221,10 +221,15 @@
                 (cdr a)
               (cons pair (remassoc key (cdr a))))))))
 
-(defun mtorus-map-into (r f xs)
-  (dotimes (i (min (length r) (length xs)) r)
-    (setf (elt r i)
-          (funcall f (elt xs i)))))
+;; Credit : https://stackoverflow.com/questions/27666457/mapcar-in-place-destructively-modify-a-list-of-lists
+
+; (defun mtorus-map-into (r f xs)
+;   (dotimes (i (min (length r) (length xs)) r)
+;     (setf (elt r i)
+;           (funcall f (elt xs i)))))
+
+(defun mtorus-map-into (rs f xs)
+  (mapl (lambda (r x) (setf (car r) (funcall f (car x)))) rs xs))
 
 ;; ==============================
 
