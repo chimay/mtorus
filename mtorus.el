@@ -208,6 +208,8 @@
 
 ;; ==============================
 
+;; Outils
+
 ;; Credit : https://github.com/emacs-ess/ESS/pull/400/files
 
 (if (not (functionp 'remassoc))
@@ -218,6 +220,11 @@
             (if (equal (car pair) key)
                 (cdr a)
               (cons pair (remassoc key (cdr a))))))))
+
+(defun mtorus-map-into (r f xs)
+  (dotimes (i (min (length r) (length xs)) r)
+    (setf (elt r i)
+          (funcall f (elt xs i)))))
 
 ;; ==============================
 
@@ -525,6 +532,7 @@ buffer list. Then you can use the variable
 behavior."
   (interactive)
   (setq mtorus-torus nil)
+  (setq mtorus-current-ring-name mtorus-default-ring-name)
   (mtorus-new-ring mtorus-default-ring-name)
   (if mtorus-save-on-exit
 	  (add-hook 'kill-emacs-hook
@@ -970,18 +978,27 @@ in the just left marker is updated."
   ;; 	    (mtorus-save-torus dirname)))
   )
 
+(defun mtorus-remove-duplicates ()
+
+  "Remove duplicates files in rings"
+    (mtorus-map-into mtorus-torus #'delete-dups mtorus-torus)
+  )
+
 (defun mtorus-save-torus ()
   "Save the current torus to `mtorus-file-name'."
 
   ;; Asks for a directory where to save it (just like `desktop-save' does.
   ;; (interactive "DDirectory to save torus file in: ")
 
-  ;;  (let ((filename (expand-file-name mtorus-file-name dirname))
+  ;;  (let ((filename (expand-file-name mtorus-file-name mtorus-dirname)) ...
+  ;;  (expand-file-name mtorus-file-name mtorus-dirname)
 
   (interactive)
 
+  (mtorus-remove-duplicates)
+
   (run-hooks 'mtorus-save-hook)
-    (let ((filename (expand-file-name mtorus-file-name))
+    (let ((filename (read-file-name "Torus file : " mtorus-dirname))
 		  (tmpbuf (get-buffer-create " *mtorus-tmp*"))
 		  )
 	  (save-excursion
@@ -1031,10 +1048,17 @@ If the torus is not initialized yet this function cancels
 reading. You need to call `mtorus-init' first.
 When XEmacs is running in batch mode nothing is done."
   (interactive)
+
+  ;; Let’s deletethe old torus
+  (mtorus-init)
+
+  ;; (filename (expand-file-name mtorus-file-name dirname))) ...
+  ;; (expand-file-name mtorus-file-name dirname)
+
   (if noninteractive
       nil
 	(let* ((dirname (mtorus-default-directory))
-		  (filename (expand-file-name mtorus-file-name dirname)))
+		  (filename (read-file-name "Torus file : " mtorus-dirname)))
 	  (if (file-readable-p filename)
 		  (let ((tmpbuf (get-buffer-create " *mtorus-tmp*"))
 				(tmplist))
@@ -1057,7 +1081,7 @@ When XEmacs is running in batch mode nothing is done."
 								  (cdr ring)))
 							tmplist)
 				  (kill-buffer tmpbuf)
-				  (setq mtorus-dirname dirname)
+				  ;; (setq mtorus-dirname dirname)
 				  )))
 		(message "No torus found in current directory.")))))
 
