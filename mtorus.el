@@ -1064,7 +1064,7 @@ reading. You need to call `mtorus-init' first.
 When XEmacs is running in batch mode nothing is done."
   (interactive)
 
-  ;; Let’s deletethe old torus
+  ;; Let’s delete the old torus
   (mtorus-init)
 
   ;; (filename (expand-file-name mtorus-file-name dirname))) ...
