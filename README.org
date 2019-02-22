@@ -6,30 +6,6 @@
 The code is too complex, I rewrote it from scratch, please see the [[https://github.com/chimay/torus][Torus]] repository.
 
 
-* Description
-
-If you ever dreamed about creating and switching buffer groups at will
-in emacs, MTorus is the tool you want.
-
-This repository is of fork of https://sourceforge.net/projects/mtorus.berlios/
-
-Note that :
-
-  - A buffer group is called a ring
-
-  - The set of all buffer groups is called the torus (a ring of rings)
-
-In short, this plugin let you organize your buffers by creating as
-many buffer groups as you need, and quickly navigate between :
-
-  - Buffers of the same group
-
-  - Buffer groups (rings)
-
-The original project seems to be at rest by now, so I’ve mirrored it
-here in case I would need to tweak it.
-
-
 * Done
 
 What has been done :
